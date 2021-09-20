@@ -9,7 +9,7 @@ describe('cat order routes', () => {
   });
 
   it('creates a cat from post', async () => {
-    const garfield = { name: 'garfield', age: 15, quantity: '3' };
+    const garfield = { name: 'garfield', age: 15, quantity: 2 };
     const res = await request(app).post('/api/v1/cats').send(garfield);
 
     expect(res.body).toEqual({

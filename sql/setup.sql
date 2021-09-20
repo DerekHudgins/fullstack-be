@@ -4,5 +4,5 @@ CREATE TABLE cats (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name TEXT NOT NULL,
     age INTEGER NOT NULL,
-    quantity INTEGER CHECK (quantity > 0)
+    quantity INTEGER NOT NULL
 );
