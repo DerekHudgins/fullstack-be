@@ -30,7 +30,7 @@ describe('cat order routes', () => {
 
     expect(res.body).toEqual(tom);
   });
-  
+
   it('gets all cats from get', async () => {
     const tom = await Cat.insert({
       name: 'tom',
@@ -53,5 +53,19 @@ describe('cat order routes', () => {
       .then((res) => {
         expect(res.body).toEqual([tom, garfield, sassy]);
       });
+  });
+  
+  it('updates a cat by id', async () => {
+    const tom = await Cat.insert({
+      name: 'tom',
+      age: 10,
+      quantity: '2',
+    });
+
+    const res = await request(app)
+      .put(`/api/v1/cats/${tom.id}`)
+      .send({ quantity: '1' });
+
+    expect(res.body).toEqual({ ...tom, quantity: '1' });
   });
 });
