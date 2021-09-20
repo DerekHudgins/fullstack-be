@@ -68,4 +68,18 @@ describe('cat order routes', () => {
 
     expect(res.body).toEqual({ ...tom, quantity: 1 });
   });
+
+  it('deletes an existing cat by id', async () => {
+    const cat = await Cat.insert({
+      name: 'tom',
+      age: 10,
+      quantity: '1',
+    });
+
+    const res = await request(app).delete(`/api/v1/cats/${cat.id}`);
+
+    expect(res.body).toEqual({
+      message: `${cat.name} was deleted!`,
+    });
+  });
 });
