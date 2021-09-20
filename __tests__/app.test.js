@@ -2,6 +2,7 @@ import pool from '../lib/utils/pool.js';
 import setup from '../data/setup.js';
 import request from 'supertest';
 import app from '../lib/app.js';
+import Cat from '../lib/models/Cat';
 
 describe('cat order routes', () => {
   beforeEach(() => {
@@ -16,5 +17,16 @@ describe('cat order routes', () => {
       id: '1',
       ...garfield,
     });
+  });
+  it('gets a cat by id', async () => {
+    const tom = await Cat.insert({
+      name: 'tom',
+      age: 10,
+      quantity: 1,
+    });
+
+    const res = await request(app).get(`/api/v1/cats/${tom.id}`);
+
+    expect(res.body).toEqual(tom);
   });
 });
