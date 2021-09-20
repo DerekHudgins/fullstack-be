@@ -18,6 +18,7 @@ describe('cat order routes', () => {
       ...garfield,
     });
   });
+
   it('gets a cat by id', async () => {
     const tom = await Cat.insert({
       name: 'tom',
@@ -28,5 +29,29 @@ describe('cat order routes', () => {
     const res = await request(app).get(`/api/v1/cats/${tom.id}`);
 
     expect(res.body).toEqual(tom);
+  });
+  
+  it('gets all cats from get', async () => {
+    const tom = await Cat.insert({
+      name: 'tom',
+      age: 10,
+      quantity: '1',
+    });
+    const garfield = await Cat.insert({
+      name: 'garfield',
+      age: 15,
+      quantity: '2',
+    });
+    const sassy = await Cat.insert({
+      name: 'sassy',
+      age: 8,
+      quantity: '1',
+    });
+
+    return request(app)
+      .get('/api/v1/cats')
+      .then((res) => {
+        expect(res.body).toEqual([tom, garfield, sassy]);
+      });
   });
 });
